@@ -1,32 +1,25 @@
 import * as fs from 'fs';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event: any) => {
     const { diskName } = await readBody(event)
     const files = await readFiles(diskName)
     return files
 })
 
-const readFiles = async (directory) => {
+const readFiles = async (directory: string) => {
     return new Promise((resolve, reject) => {
       let driveInfo = [] 
-      fs.readdir(directory, (err, files) => {
+      fs.readdir(directory, (err: Error, files: string[]) => {
         if (err) {
           reject(err)
         }
 
         driveInfo = files
-          .filter(file => !file.includes('$'))
-          .map( file => {
-            try {
+          .filter(file => !file.includes('$') && !file.startsWith('.'))
+          .map(file => {
               return {
                 path: file,
                 isDirectory: !file.includes('.')
-              }
-            }
-            catch {
-              return {
-                path: file,
-                isDirectory: null
               }
             }
           })

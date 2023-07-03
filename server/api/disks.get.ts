@@ -1,6 +1,6 @@
 import * as drivelist from 'drivelist';
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event: any) => {
     const drives = await drivelist.list();
     return drives
       .map(drive => {
@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
           removable: drive.isRemovable
         }
       })
-      .sort((disk1, disk2) => sort(disk1, disk2, "removable"))
+      .sort((disk1: any, disk2: any) => sort(disk1, disk2, "removable"))
 })
 
 const sort = (disk1: any, disk2: any, property: string) => {
