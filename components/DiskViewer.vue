@@ -48,7 +48,9 @@ const readDir = async (folderName, columnIndex) => {
         }
     })
     
-    folders.value[columnIndex] = files.value
+    //only if the folder contains files, create a new row
+    if(files.value.length > 0) 
+        folders.value[columnIndex] = files.value
     
 }
 </script>
