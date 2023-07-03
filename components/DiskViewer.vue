@@ -14,13 +14,13 @@
                 </p>
             </div>
             <div class="column" v-for="(folder, index) in folders" :key="index">
-                <p v-for="file in folder" @click="() => readDir(file, index + 1)"
+                <div v-for="file in folder" @click="() => readDir(file, index + 1)"
                     :class="selectedPath.includes(file.path) ? 'disk-item selected': 'disk-item'"
                 >
                     <Icon class="icon" v-if="file.isDirectory" name="material-symbols:folder"/>
                     <Icon class="icon" v-else name="ant-design:file-outlined" />
-                    {{ file.path }}
-                </p>
+                    <p>{{ file.path.slice(0, 20) }}<span v-if="file.path.length > 20">...</span></p>
+                </div>
             </div>
         </div>
     </div>
@@ -98,12 +98,12 @@ $file-color: black;
     background: #f1f1f1;
     width: 100%;
     height: 100%;
-    overflow-y: hidden;
+    overflow: hidden;
     > div {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        min-width: 150px;
+        width: 300px;
         padding: 20px;
         background: $background-color;
         border-right: 1px solid $border-color;
@@ -116,18 +116,20 @@ $file-color: black;
     }
     .sidebar {
         .sidebar-subtitle {
-            // color: #afafaf;
             color: $title-color;
             font-weight: 400;
         }
     }
 
     .disk-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         width: 100%;
         height: 30px;
         background: $foreground-color;
         line-height: 30px;
-        padding: 0 10px;
+        padding: 5px 20px;
         color: $file-color;
         cursor: pointer;
         border-radius: 4px;
