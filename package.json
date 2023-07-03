@@ -1,0 +1,36 @@
+{
+  "name": "nuxt-app",
+  "version": "1.0.1",
+  "description": "My fast explorer app",
+  "main": "main.js",
+  "author": "Eric van den Berge",
+  "license": "MIT",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
+    "@nuxt/devtools": "latest",
+    "@types/node": "^18",
+    "electron": "^25.2.0",
+    "nuxt": "^3.6.1"
+  },
+  "dependencies": {
+    "drivelist": "^11.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "nuxt-icon": "^0.4.2",
+    "sass": "^1.63.6"
+  }
+}
