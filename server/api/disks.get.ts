@@ -5,7 +5,7 @@ export default defineEventHandler(async (event: any) => {
     return drives
       .map(drive => {
         return {
-          name: drive.mountpoints[0].path,
+          path: drive.mountpoints[0].path,
           size: drive.size,
           removable: drive.isRemovable
         }

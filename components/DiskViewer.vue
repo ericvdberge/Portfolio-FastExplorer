@@ -6,13 +6,19 @@
         <div class="main">
             <div class="sidebar">
                 <p class="sidebar-subtitle">Disks</p>
-                <p class="disk" v-for="disk in disks" @click="() => readDir(disk.name, 0)">
-                    <Icon name="material-symbols:folder" color="#afafaf"/>
-                    {{ disk.name }}
+                <p v-for="disk in disks" @click="() => readDir(disk, 0)"
+                   :class="selectedPath.includes(disk.path) ? 'disk-item selected': 'disk-item'"
+                >
+                    <Icon class="icon" name="material-symbols:folder"/>
+                    {{ disk.path }}
                 </p>
             </div>
             <div class="column" v-for="(folder, index) in folders" :key="index">
-                <p v-for="file in folder" @click="() => { if(file.isDirectory) readDir(file.path, index + 1) }">
+                <p v-for="file in folder" @click="() => readDir(file, index + 1)"
+                    :class="selectedPath.includes(file.path) ? 'disk-item selected': 'disk-item'"
+                >
+                    <Icon class="icon" v-if="file.isDirectory" name="material-symbols:folder"/>
+                    <Icon class="icon" v-else name="ant-design:file-outlined" />
                     {{ file.path }}
                 </p>
             </div>
@@ -32,15 +38,19 @@ let selectedPath = ref([])
  * fetch folder files when clicked on folder
  * @param {*} folderName - the folder name you want to fetch files from 
  */
-const readDir = async (folderName, columnIndex) => {
+const readDir = async (file, columnIndex) => {
     //want to make more steps back then 1
     //reset length to the appropiate column
-    if(folders.value.length - columnIndex > 1) { 
+    if(file.isDirectory && folders.value.length - columnIndex > 1) { 
        folders.value.length = columnIndex + 1
        selectedPath.value.length = columnIndex + 1
     }
+    else {
+        folders.value.length = columnIndex 
+       selectedPath.value.length = columnIndex
+    }
 
-    selectedPath.value[columnIndex] = folderName
+    selectedPath.value[columnIndex] = file.path
     const { data: files } = await useFetch('/api/folder', {
         method: 'POST',
         body: {
@@ -64,9 +74,12 @@ const readDir = async (folderName, columnIndex) => {
 }
 
 $background-color: #eeeeee;
+$background-selected-color: #3a9bdc;
+$icon-selected-color: #1360cc;
 $foreground-color: #dddddd;
 $border-color: #ccccccaf;
 $title-color: #afafaf;
+$file-color: black;
 
 
 .container {
@@ -87,6 +100,9 @@ $title-color: #afafaf;
     height: 100%;
     overflow-y: hidden;
     > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         min-width: 150px;
         padding: 20px;
         background: $background-color;
@@ -99,22 +115,31 @@ $title-color: #afafaf;
         }
     }
     .sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
         .sidebar-subtitle {
             // color: #afafaf;
             color: $title-color;
             font-weight: 400;
         }
-        .disk {
-            width: 100%;
-            height: 30px;
-            background: $foreground-color;
-            line-height: 30px;
-            padding: 0 10px;
+    }
+
+    .disk-item {
+        width: 100%;
+        height: 30px;
+        background: $foreground-color;
+        line-height: 30px;
+        padding: 0 10px;
+        color: $file-color;
+        cursor: pointer;
+        border-radius: 4px;
+        .icon {
             color: $title-color;
-            cursor: pointer;
+        }
+    }
+
+    .disk-item.selected {
+        background: $background-selected-color;
+        .icon {
+            color: $icon-selected-color;
         }
     }
 }
