@@ -1,7 +1,12 @@
 <template>
     <div class="container">
         <div class="header">
-            {{ selectedPath }}
+            <p>{{ selectedPath.join('\\') }}</p>
+            <div class="search">
+                <Icon name="carbon:search"/>
+                <input />
+            </div>
+            <div></div>
         </div>
         <div class="main">
             <div class="sidebar">
@@ -90,7 +95,28 @@ $file-color: black;
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 60px;
+    padding: 0px 50px;
+    > *:not(.search) {
+        width: 25vw;
+    }
+    .search {
+        width: 50vw;
+        height: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 3px 3px #ccc;
+        padding: 0 20px;
+        input {
+            width: 90%;
+            height: 100%;
+            border: none;
+            outline: none;
+            padding: 0 20px;
+        }
+    }
 }
 
 .main {
