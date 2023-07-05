@@ -2,7 +2,7 @@
   "name": "nuxt-app",
   "version": "1.0.1",
   "description": "My fast explorer app",
-  "main": "main.js",
+  "main": "electron/main.js",
   "author": "Eric van den Berge",
   "license": "MIT",
   "scripts": {
@@ -11,9 +11,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "nuxt build && sleep 2 && electron-forge start",
+    "package": "nuxt build && sleep 2 && electron-forge package"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",

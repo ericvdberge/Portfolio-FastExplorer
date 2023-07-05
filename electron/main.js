@@ -1,11 +1,12 @@
 const { app, BrowserWindow } = require('electron')
 const path =  require('path')
+var cp = require('child_process')
 
 
 /**
  * PreConfigure
  */
-process.env.ROOT = path.join(__dirname)
+process.env.ROOT = path.join(__dirname, '..')
 process.env.DIST = path.join(process.env.ROOT, 'dist')
 
 
@@ -17,18 +18,20 @@ const createWindow = () => {
       width: 800,
       height: 600,
       webPreferences: {
-        preload: path.join(__dirname, 'preload.js')
+        preload: path.join(__dirname, 'preload.js'),
       }
     })
   
-    const windowSrc = path.join(process.env.DIST, 'index.html')
-    win.loadFile(windowSrc)
+    const windowSrc = 'http://localhost:3000'
+    win.loadURL(windowSrc)
 }
+
 
 /**
  * Create function when app is ready
  */
 app.whenReady().then(() => {
+    cp.fork(path.resolve(__dirname, '../.output/server/index.mjs'))
     createWindow()
 })
 
