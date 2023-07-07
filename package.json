@@ -22,6 +22,7 @@
     "@electron-forge/maker-zip": "^6.2.1",
     "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@nuxt/devtools": "latest",
+    "@nuxthq/ui": "^2.5.0",
     "@types/node": "^18",
     "electron": "^25.2.0",
     "nuxt": "^3.6.1"
