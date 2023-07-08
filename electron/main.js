@@ -1,13 +1,34 @@
 const { app, BrowserWindow } = require('electron')
 const path =  require('path')
-var cp = require('child_process')
-
+const { pathToFileURL } = require('url');
 
 /**
  * PreConfigure
  */
-process.env.ROOT = path.join(__dirname, '..')
-process.env.DIST = path.join(process.env.ROOT, 'dist')
+if(process.env.ELECTRON_DEV == 1) 
+{
+  //dev root folder 
+  process.env.ROOT = path.resolve(__dirname, '..')
+}
+else 
+{
+  //production root folder 
+  process.env.ROOT = path.join(process.resourcesPath)
+}
+
+
+/**
+ * Create function to run website in SSR
+ */
+const startWebServer = async () => {
+  const modulePath = path.join(process.env.ROOT, '.output/server/index.mjs');
+  const moduleUrl = pathToFileURL(modulePath).href;
+  const { default: startServer } = await import(moduleUrl);
+
+  if (typeof startServer === 'function') {
+    startServer();
+  }
+}
 
 
 /**
@@ -18,22 +39,19 @@ const createWindow = () => {
       width: 800,
       height: 600,
       webPreferences: {
-        preload: path.join(__dirname, 'preload.js'),
+        nodeIntegration: true,
       }
     })
   
-    const windowSrc = 'http://localhost:3000'
-    win.loadURL(windowSrc)
+    win.loadURL('http://localhost:3000')
 }
-
 
 /**
  * Create function when app is ready
  */
-app.whenReady().then(() => {
-    cp.fork(path.resolve(__dirname, '../.output/server/index.mjs'))
-    createWindow()
-})
+app.whenReady()
+  .then(startWebServer)
+  .then(createWindow)
 
 /**
  * Close the app when all windows are closed

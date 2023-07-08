@@ -5,6 +5,7 @@
 .cache
 dist
 out
+releases
 
 # Node dependencies
 node_modules

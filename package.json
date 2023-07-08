@@ -1,18 +1,15 @@
 {
-  "name": "nuxt-app",
+  "name": "fastplorer",
   "version": "1.0.1",
   "description": "My fast explorer app",
   "main": "electron/main.js",
   "author": "Eric van den Berge",
   "license": "MIT",
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "start": "nuxt build && sleep 2 && electron-forge start",
-    "package": "nuxt build && sleep 2 && electron-forge package"
+    "app:start": "set ELECTRON_DEV=1 && electron .",
+    "app:make": "nuxt build && electron-builder",
+    "app:start-prod": "./releases/1.0.1/win32/x64/win-unpacked/FastPlorer.exe --inspect"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",
@@ -25,12 +22,30 @@
     "@nuxthq/ui": "^2.5.0",
     "@types/node": "^18",
     "electron": "^25.2.0",
+    "electron-builder": "^24.4.0",
     "nuxt": "^3.6.1"
   },
   "dependencies": {
     "drivelist": "^11.1.0",
+    "electron-remote": "^1.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "nuxt-icon": "^0.4.2",
+    "nuxtron": "^0.3.1",
     "sass": "^1.63.6"
+  },
+  "build": {
+    "appId": "ericvdberge.fastplorer",
+    "productName": "FastPlorer",
+    "artifactName": "fastplorer-${version}.${ext}",
+    "win": {
+      "target": "portable"
+    },
+    "linux": {
+      "target": "zip"
+    },
+    "directories": {
+      "output": "releases/${version}/${platform}/${arch}"
+   },
+   "extraResources": [".output/server/**"]
   }
 }
