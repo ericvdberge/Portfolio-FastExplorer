@@ -8,16 +8,11 @@
   "scripts": {
     "dev": "nuxt dev",
     "app:start": "set ELECTRON_DEV=1 && electron .",
-    "app:make": "nuxt build && electron-builder",
+    "app:make": "electron-builder",
     "app:start-prod": "./releases/1.0.1/win32/x64/win-unpacked/FastPlorer.exe --inspect"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",
-    "@electron-forge/maker-deb": "^6.2.1",
-    "@electron-forge/maker-rpm": "^6.2.1",
-    "@electron-forge/maker-squirrel": "^6.2.1",
-    "@electron-forge/maker-zip": "^6.2.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@nuxt/devtools": "latest",
     "@nuxthq/ui": "^2.5.0",
     "@types/node": "^18",
@@ -27,8 +22,6 @@
   },
   "dependencies": {
     "drivelist": "^11.1.0",
-    "electron-remote": "^1.3.0",
-    "electron-squirrel-startup": "^1.0.0",
     "nuxt-icon": "^0.4.2",
     "nuxtron": "^0.3.1",
     "sass": "^1.63.6"
@@ -45,7 +38,9 @@
     },
     "directories": {
       "output": "releases/${version}/${platform}/${arch}"
-   },
-   "extraResources": [".output/server/**"]
+    },
+    "extraResources": [
+      ".output/server/**"
+    ]
   }
 }
