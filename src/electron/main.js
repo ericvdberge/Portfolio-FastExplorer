@@ -5,16 +5,21 @@ const { pathToFileURL } = require('url');
 /**
  * PreConfigure
  */
-if(process.env.ELECTRON_DEV == 1) 
-{
-  //dev root folder 
-  process.env.ROOT = path.resolve(__dirname, '..')
-}
-else 
-{
-  //production root folder 
-  process.env.ROOT = path.join(process.resourcesPath)
-}
+
+process.env.ELECTRON_DEV == 1 ? 
+  process.env.ROOT = path.resolve(__dirname, '..') : //dev root folder 
+  process.env.ROOT = path.join(process.resourcesPath) //production root folder 
+
+// if(process.env.ELECTRON_DEV == 1) 
+// {
+  
+//   process.env.ROOT = path.resolve(__dirname, '..')
+// }
+// else 
+// {
+//   //production root folder 
+//   process.env.ROOT = path.join(process.resourcesPath)
+// }
 
 
 /**

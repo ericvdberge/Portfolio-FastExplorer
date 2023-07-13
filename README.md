@@ -8,13 +8,13 @@ Make sure to install the dependencies:
 
 ```bash
 # npm
-npm install
+npm run install:modules
 
 # pnpm
-pnpm install
+pnpm run install:modules
 
 # yarn
-yarn install
+yarn install:modules
 ```
 
 ## Development Server
