@@ -23,12 +23,3 @@ body:
       placeholder: "Example: As a [user role], I want to [complete action] so that I can [achieve outcome]"
     validations:
       required: true
-
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-      options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
