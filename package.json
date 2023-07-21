@@ -2,15 +2,16 @@
   "name": "fastplorer",
   "version": "1.0.1",
   "description": "My fast explorer app",
-  "main": "electron/main.js",
+  "main": "lib/electron/main.js",
   "author": "Eric van den Berge",
   "license": "MIT",
   "scripts": {
-    "install:modules": "yarn install --modules-folder ../packages",
-    "dev": "nuxt dev",
-    "app:make": "nuxt build && electron-builder",
+    "install:modules": "yarn install --modules-folder packages",
+    "dev": "nuxt dev src",
+    "build": "nuxt build src",
+    "app:make": "nuxt build src && electron-builder",
     "app:start-dev": "set ELECTRON_DEV=1 && electron .",
-    "app:start": "yarn app:make && ../artifacts/1.0.1/win32/x64/win-unpacked/FastPlorer.exe --inspect"
+    "app:start": "yarn app:make && ./artifacts/1.0.1/win32/x64/win-unpacked/FastPlorer.exe --inspect"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",
@@ -38,10 +39,10 @@
       "target": "zip"
     },
     "directories": {
-      "output": "../artifacts/${version}/${platform}/${arch}"
+      "output": "artifacts/app/${version}/${platform}/${arch}"
     },
     "extraResources": [
-      ".output/server/**"
+      "./artifacts/website/**"
     ]
   }
 }
