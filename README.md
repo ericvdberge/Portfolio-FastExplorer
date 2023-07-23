@@ -1,6 +1,5 @@
 
 <center> 
-<img src="./src/public/logowhite.png" width="250px"/><br><hr>
 <img src="./src/public/github-banner.png"/>
 Welcome to the fastplorer project, a project build with <a href="https://nuxt.com/docs/getting-started/introduction">Nuxt</a> and <a href="https://www.electronjs.org/docs/latest/">Electron</a>. Fastplorer is a file explorer that uses columns (MAC finder experience) to browse through your files. It is also possible to search files anywhere on your disk with incredible speed!
 </center>
