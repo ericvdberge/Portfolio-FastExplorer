@@ -6,7 +6,6 @@
   "author": "Eric van den Berge",
   "license": "MIT",
   "scripts": {
-    "install:modules": "yarn install --modules-folder packages",
     "dev": "nuxt dev src",
     "build": "nuxt build src",
     "app:make": "nuxt build src && electron-builder",

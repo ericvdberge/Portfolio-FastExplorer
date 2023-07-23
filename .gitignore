@@ -6,7 +6,6 @@
 dist
 artifacts/*
 !artifacts/.gitkeep 
-packages
 
 # Node dependencies
 node_modules
